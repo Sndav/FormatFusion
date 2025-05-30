@@ -17,24 +17,24 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            binary_name: formatfusion
+            binary_name: FormatFusion
             asset_name: formatfusion-linux-x86_64.tar.gz
           - os: ubuntu-latest
             target: aarch64-unknown-linux-gnu
-            binary_name: formatfusion
+            binary_name: FormatFusion
             asset_name: formatfusion-linux-aarch64.tar.gz
             use_cross: true
           - os: macos-latest
             target: x86_64-apple-darwin
-            binary_name: formatfusion
+            binary_name: FormatFusion
             asset_name: formatfusion-macos-x86_64.tar.gz
           - os: macos-latest
             target: aarch64-apple-darwin
-            binary_name: formatfusion
+            binary_name: FormatFusion
             asset_name: formatfusion-macos-aarch64.tar.gz
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            binary_name: formatfusion.exe
+            binary_name: FormatFusion.exe
             asset_name: formatfusion-windows-x86_64.zip
 
     steps:
@@ -90,11 +90,10 @@ jobs:
         with:
           path: artifacts
 
-      - name: Move artifacts to root
+      - name: Copy artifacts
         run: |
-            mv artifacts/*.tar.gz .
-            mv artifacts/*.zip .
-            ls -la
+            find artifacts -type f -name 'formatfusion-*.tar.gz' -exec mv {} . \;
+            find artifacts -type f -name 'formatfusion-*.zip' -exec mv {} . \;
 
       - name: Get release version
         id: get_version
@@ -147,10 +146,7 @@ jobs:
             **Windows**:
             解压 zip 文件，将 `formatfusion.exe` 放到 PATH 目录中。
           files: |
-            formatfusion-linux-aarch64.tar.gz
-            formatfusion-macos-aarch64.tar.gz
-            formatfusion-linux-x86_64.tar.gz
-            formatfusion-macos-x86_64.tar.gz
-            formatfusion-windows-x86_64.zip
+            formatfusion-*.tar.gz
+            formatfusion-*.zip
           draft: false
           prerelease: false
