@@ -2,6 +2,14 @@
 name = "FormatFusion"
 version = "0.1.0"
 edition = "2024"
+authors = ["Sndav <i@sndav.org>"]
+description = "一个高性能的多格式文本处理工具，支持 JSON、YAML 和 XML 的美化与格式化"
+license = "GPL-3.0"
+repository = "https://github.com/Sndav/FormatFusion"
+readme = "README.md"
+keywords = ["formatting", "json", "yaml", "xml", "beautify"]
+categories = ["command-line-utilities", "development-tools"]
+
 
 [dependencies]
 arboard = "3.5.0"

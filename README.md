@@ -1,7 +1,7 @@
 # 📝 FormatFusion
 
 [![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=for-the-badge)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1.0-green.svg?style=for-the-badge)](Cargo.toml)
 
 > 🚀 一个高性能的多格式文本处理工具，支持 JSON、YAML 和 XML 的美化与格式化
@@ -98,19 +98,9 @@ FormatFusion/
 │   └── formater.rs      # 格式化核心逻辑
 ├── Cargo.toml           # 项目依赖配置
 ├── Cargo.lock           # 依赖锁定文件
-└── README.md            # 项目说明文档
+├── README.md            # 项目说明文档
+└── LICENSE              # 项目许可证
 ```
-
-## 🛠️ 技术栈
-
-- **核心语言**: Rust 2024 Edition
-- **命令行解析**: clap 4.x (derive 特性)
-- **剪贴板操作**: arboard 3.5.0
-- **错误处理**: anyhow 1.0.98
-- **JSON 处理**: serde_json 1.x
-- **YAML 处理**: serde_yaml 0.9
-- **XML 处理**: xmltree 0.11
-- **日志记录**: log 0.4 + env_logger 0.11
 
 ## 🔧 开发
 
@@ -188,7 +178,7 @@ hobbies:
 
 ## 📄 许可证
 
-本项目基于 MIT 许可证发布。详情请查看 [LICENSE](LICENSE) 文件。
+本项目基于 GPL 许可证发布。详情请查看 [LICENSE](LICENSE) 文件。
 
 ## 🔮 未来计划
 
@@ -205,7 +195,6 @@ hobbies:
 
 - 📧 Email: i@sndav.org
 - 🐛 Issues: [GitHub Issues](https://github.com/Sndav/FormatFusion/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/Sndav/FormatFusion/discussions)
 
 ---
 
