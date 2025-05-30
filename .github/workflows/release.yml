@@ -90,12 +90,6 @@ jobs:
         with:
           path: artifacts
 
-      - name: Move artifacts to root
-        run: |
-          find artifacts -type f -name "*.tar.gz" -o -name "*.zip" | while read file; do
-            mv "$file" .
-          done
-
       - name: Get release version
         id: get_version
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
@@ -147,7 +141,7 @@ jobs:
             **Windows**:
             解压 zip 文件，将 `formatfusion.exe` 放到 PATH 目录中。
           files: |
-            formatfusion-*.tar.gz
-            formatfusion-*.zip
+            artifacts/formatfusion-*.tar.gz
+            artifacts/formatfusion-*.zip
           draft: false
           prerelease: false
