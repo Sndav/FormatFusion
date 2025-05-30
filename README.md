@@ -2,7 +2,6 @@
 
 [![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=for-the-badge)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.0-green.svg?style=for-the-badge)](Cargo.toml)
 [![CI](https://img.shields.io/github/actions/workflow/status/Sndav/FormatFusion/ci.yml?branch=main&style=for-the-badge&label=CI)](https://github.com/Sndav/FormatFusion/actions)
 [![Release](https://img.shields.io/github/v/release/Sndav/FormatFusion?style=for-the-badge)](https://github.com/Sndav/FormatFusion/releases)
 
