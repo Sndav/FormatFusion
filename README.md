@@ -3,6 +3,8 @@
 [![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=for-the-badge)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1.0-green.svg?style=for-the-badge)](Cargo.toml)
+[![CI](https://img.shields.io/github/actions/workflow/status/Sndav/FormatFusion/ci.yml?branch=main&style=for-the-badge&label=CI)](https://github.com/Sndav/FormatFusion/actions)
+[![Release](https://img.shields.io/github/v/release/Sndav/FormatFusion?style=for-the-badge)](https://github.com/Sndav/FormatFusion/releases)
 
 > 🚀 一个高性能的多格式文本处理工具，支持 JSON、YAML 和 XML 的美化与格式化
 
@@ -21,6 +23,29 @@ FormatFusion 是一个用 Rust 编写的命令行工具，专为开发者和数�
 
 ### 安装
 
+#### 从发布版本安装（推荐）
+
+1. 前往 [Releases 页面](https://github.com/Sndav/FormatFusion/releases)
+2. 下载适合您操作系统的版本：
+   - **Linux x86_64**: `formatfusion-linux-x86_64.tar.gz`
+   - **Linux ARM64**: `formatfusion-linux-aarch64.tar.gz`
+   - **macOS x86_64**: `formatfusion-macos-x86_64.tar.gz`
+   - **macOS ARM64 (Apple Silicon)**: `formatfusion-macos-aarch64.tar.gz`
+   - **Windows x86_64**: `formatfusion-windows-x86_64.zip`
+
+3. 解压并安装：
+
+**Linux/macOS**:
+```bash
+tar -xzf formatfusion-*.tar.gz
+sudo mv formatfusion /usr/local/bin/
+```
+
+**Windows**:
+解压 zip 文件，将 `formatfusion.exe` 放到 PATH 目录中。
+
+#### 从源码编译
+
 确保您已安装 Rust 工具链，然后克隆并构建项目：
 
 ```bash
@@ -34,28 +59,28 @@ cargo build --release
 #### 从剪贴板格式化 JSON
 ```bash
 # 从剪贴板读取内容，格式化为 JSON，并输出到控制台
-./target/release/beautify --clip --format json
+./target/release/formatfusion --clip --format json
 
 # 格式化后直接复制回剪贴板
-./target/release/beautify --clip --format json --back
+./target/release/formatfusion --clip --format json --back
 ```
 
 #### 格式化文件
 ```bash
 # 格式化文件并输出到控制台
-./target/release/beautify --input data.json --format json
+./target/release/formatfusion --input data.json --format json
 
 # 格式化文件并保存到新文件
-./target/release/beautify --input data.json --format json --output formatted.json
+./target/release/formatfusion --input data.json --format json --output formatted.json
 ```
 
 #### YAML 和 XML 处理
 ```bash
 # 格式化 YAML 文件
-./target/release/beautify --input config.yml --format yaml --output config_formatted.yml
+./target/release/formatfusion --input config.yml --format yaml --output config_formatted.yml
 
 # 格式化 XML 文件
-./target/release/beautify --input document.xml --format xml --output document_formatted.xml
+./target/release/formatfusion --input document.xml --format xml --output document_formatted.xml
 ```
 
 ## 📖 命令行参数
@@ -74,19 +99,19 @@ cargo build --release
 ```bash
 # 快速美化 API 响应的 JSON 数据
 curl -s https://api.example.com/data | pbcopy
-./target/release/beautify -c -f json -b
+./target/release/formatfusion -c -f json -b
 ```
 
 ### 配置文件整理
 ```bash
 # 格式化项目配置文件
-./target/release/beautify -i .github/workflows/ci.yml -f yaml -o .github/workflows/ci_formatted.yml
+./target/release/formatfusion -i .github/workflows/ci.yml -f yaml -o .github/workflows/ci_formatted.yml
 ```
 
 ### 数据转换
 ```bash
 # 处理 XML 配置文件
-./target/release/beautify -i config.xml -f xml -o config_formatted.xml
+./target/release/formatfusion -i config.xml -f xml -o config_formatted.xml
 ```
 
 ## 🏗️ 项目结构

@@ -10,7 +10,6 @@ readme = "README.md"
 keywords = ["formatting", "json", "yaml", "xml", "beautify"]
 categories = ["command-line-utilities", "development-tools"]
 
-
 [dependencies]
 arboard = "3.5.0"
 anyhow = "1.0.98"
@@ -20,3 +19,7 @@ log = "0.4"
 serde_json = "1"
 serde_yaml = "0.9"
 xmltree = "0.11"
+
+[[bin]]
+name = "formatfusion"
+path = "src/main.rs"

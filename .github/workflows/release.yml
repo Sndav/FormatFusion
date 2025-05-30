@@ -1,0 +1,153 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-and-release:
+    name: Build and Release
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            binary_name: formatfusion
+            asset_name: formatfusion-linux-x86_64.tar.gz
+          - os: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+            binary_name: formatfusion
+            asset_name: formatfusion-linux-aarch64.tar.gz
+            use_cross: true
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            binary_name: formatfusion
+            asset_name: formatfusion-macos-x86_64.tar.gz
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            binary_name: formatfusion
+            asset_name: formatfusion-macos-aarch64.tar.gz
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            binary_name: formatfusion.exe
+            asset_name: formatfusion-windows-x86_64.zip
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install cross
+        if: matrix.use_cross
+        run: cargo install cross --git https://github.com/cross-rs/cross
+
+      - name: Build binary
+        run: |
+          if [ "${{ matrix.use_cross }}" = "true" ]; then
+            cross build --release --target ${{ matrix.target }}
+          else
+            cargo build --release --target ${{ matrix.target }}
+          fi
+        shell: bash
+
+      - name: Package binary
+        run: |
+          cd target/${{ matrix.target }}/release
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            7z a ../../../${{ matrix.asset_name }} ${{ matrix.binary_name }}
+          else
+            tar -czf ../../../${{ matrix.asset_name }} ${{ matrix.binary_name }}
+          fi
+        shell: bash
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset_name }}
+          path: ${{ matrix.asset_name }}
+
+  create-release:
+    name: Create Release
+    needs: build-and-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Move artifacts to root
+        run: |
+          find artifacts -type f -name "*.tar.gz" -o -name "*.zip" | while read file; do
+            mv "$file" .
+          done
+
+      - name: Get release version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
+          name: Release ${{ steps.get_version.outputs.VERSION }}
+          body: |
+            ## FormatFusion ${{ steps.get_version.outputs.VERSION }}
+            
+            ### 📥 下载
+            
+            请从下方的 Assets 中下载适合您操作系统的版本：
+            
+            - **Linux x86_64**: `formatfusion-linux-x86_64.tar.gz`
+            - **Linux ARM64**: `formatfusion-linux-aarch64.tar.gz`
+            - **macOS x86_64**: `formatfusion-macos-x86_64.tar.gz`
+            - **macOS ARM64 (Apple Silicon)**: `formatfusion-macos-aarch64.tar.gz`
+            - **Windows x86_64**: `formatfusion-windows-x86_64.zip`
+            
+            ### 🚀 新特性
+            
+            请查看项目 README 了解详细使用方法。
+            
+            ### 📝 使用方法
+            
+            ```bash
+            # 从剪贴板格式化 JSON
+            ./formatfusion --clip --format json --back
+            
+            # 格式化文件
+            ./formatfusion --input data.json --format json --output formatted.json
+            ```
+            
+            ### 🛠️ 安装方法
+            
+            1. 下载对应平台的压缩包
+            2. 解压到任意目录
+            3. 将可执行文件添加到 PATH 环境变量中
+            
+            **Linux/macOS**:
+            ```bash
+            tar -xzf formatfusion-*.tar.gz
+            sudo mv formatfusion /usr/local/bin/
+            ```
+            
+            **Windows**:
+            解压 zip 文件，将 `formatfusion.exe` 放到 PATH 目录中。
+          files: |
+            formatfusion-*.tar.gz
+            formatfusion-*.zip
+          draft: false
+          prerelease: false
