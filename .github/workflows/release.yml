@@ -94,6 +94,7 @@ jobs:
         run: |
             mv artifacts/*.tar.gz .
             mv artifacts/*.zip .
+            ls -la
 
       - name: Get release version
         id: get_version
@@ -146,7 +147,10 @@ jobs:
             **Windows**:
             解压 zip 文件，将 `formatfusion.exe` 放到 PATH 目录中。
           files: |
-            formatfusion-*.tar.gz
-            formatfusion-*.zip
+            formatfusion-linux-aarch64.tar.gz
+            formatfusion-macos-aarch64.tar.gz
+            formatfusion-linux-x86_64.tar.gz
+            formatfusion-macos-x86_64.tar.gz
+            formatfusion-windows-x86_64.zip
           draft: false
           prerelease: false
