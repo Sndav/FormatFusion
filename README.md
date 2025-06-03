@@ -24,7 +24,29 @@ Skit 是一个用 Rust 编写的命令行工具，专为开发者日常工作设
 
 ### 安装
 
-#### 从发布版本安装（推荐）
+#### 一键安装（推荐）
+
+**macOS / Linux:**
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/Sndav/Skit/master/install.sh)"
+```
+
+**Windows (PowerShell):**
+```powershell
+iex (iwr -useb https://raw.githubusercontent.com/Sndav/Skit/master/install.ps1).Content
+```
+
+> 💡 **安装提示**: 
+> - 安装脚本会自动检测您的系统架构并下载对应版本
+> - Linux/macOS 用户安装到 `/usr/local/bin`，Windows 用户安装到用户目录
+> - 如遇到权限问题，脚本会自动使用 `sudo`（Linux/macOS）或提示管理员权限（Windows）
+> - 详细安装说明请查看 [INSTALL.md](INSTALL.md)
+
+#### 从发布版本安装
+
+#### 手动安装
+
+如果一键安装遇到问题，您可以手动下载安装：
 
 1. 前往 [Releases 页面](https://github.com/Sndav/Skit/releases)
 2. 下载适合您操作系统的版本：
@@ -44,6 +66,11 @@ sudo mv skit /usr/local/bin/
 
 **Windows**:
 解压 zip 文件，将 `skit.exe` 放到 PATH 目录中。
+
+**安装选项说明:**
+- **一键安装**: 自动下载最新版本并安装到系统PATH
+- **手动安装**: 适合有特殊需求或网络环境受限的用户
+- **源码编译**: 适合开发者或需要自定义编译选项的用户
 
 #### 从源码编译
 
@@ -92,9 +119,6 @@ skit format --input document.xml --format xml --output document_formatted.xml
 ```bash
 # 获取当前外网IP地址
 skit ip
-
-# 获取详细IP信息
-skit ip --verbose
 ```
 
 ## 📖 命令行参数
