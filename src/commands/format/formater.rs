@@ -1,6 +1,8 @@
-use crate::FormatType;
-use anyhow::Result;
-use std::io::{Cursor, Read, Write};
+use {
+    crate::commands::format::FormatType,
+    anyhow::Result,
+    std::io::{Cursor, Read, Write},
+};
 
 pub fn format<R: Read, W: Write>(
     reader: &mut R,

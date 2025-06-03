@@ -17,25 +17,25 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            binary_name: formatfusion
-            asset_name: formatfusion-linux-x86_64.tar.gz
+            binary_name: skit
+            asset_name: skit-linux-x86_64.tar.gz
           - os: ubuntu-latest
             target: aarch64-unknown-linux-gnu
-            binary_name: formatfusion
-            asset_name: formatfusion-linux-aarch64.tar.gz
+            binary_name: skit
+            asset_name: skit-linux-aarch64.tar.gz
             use_cross: true
           - os: macos-latest
             target: x86_64-apple-darwin
-            binary_name: formatfusion
-            asset_name: formatfusion-macos-x86_64.tar.gz
+            binary_name: skit
+            asset_name: skit-macos-x86_64.tar.gz
           - os: macos-latest
             target: aarch64-apple-darwin
-            binary_name: formatfusion
-            asset_name: formatfusion-macos-aarch64.tar.gz
+            binary_name: skit
+            asset_name: skit-macos-aarch64.tar.gz
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            binary_name: formatfusion.exe
-            asset_name: formatfusion-windows-x86_64.zip
+            binary_name: skit.exe
+            asset_name: skit-windows-x86_64.zip
 
     steps:
       - name: Checkout repository
@@ -92,8 +92,8 @@ jobs:
 
       - name: Copy artifacts
         run: |
-            find artifacts -type f -name 'formatfusion-*.tar.gz' -exec mv {} . \;
-            find artifacts -type f -name 'formatfusion-*.zip' -exec mv {} . \;
+            find artifacts -type f -name 'skit-*.tar.gz' -exec mv {} . \;
+            find artifacts -type f -name 'skit-*.zip' -exec mv {} . \;
 
       - name: Get release version
         id: get_version
@@ -105,30 +105,34 @@ jobs:
           tag_name: ${{ steps.get_version.outputs.VERSION }}
           name: Release ${{ steps.get_version.outputs.VERSION }}
           body: |
-            ## formatfusion ${{ steps.get_version.outputs.VERSION }}
+            ## Skit ${{ steps.get_version.outputs.VERSION }}
             
             ### 📥 下载
             
             请从下方的 Assets 中下载适合您操作系统的版本：
             
-            - **Linux x86_64**: `formatfusion-linux-x86_64.tar.gz`
-            - **Linux ARM64**: `formatfusion-linux-aarch64.tar.gz`
-            - **macOS x86_64**: `formatfusion-macos-x86_64.tar.gz`
-            - **macOS ARM64 (Apple Silicon)**: `formatfusion-macos-aarch64.tar.gz`
-            - **Windows x86_64**: `formatfusion-windows-x86_64.zip`
+            - **Linux x86_64**: `skit-linux-x86_64.tar.gz`
+            - **Linux ARM64**: `skit-linux-aarch64.tar.gz`
+            - **macOS x86_64**: `skit-macos-x86_64.tar.gz`
+            - **macOS ARM64 (Apple Silicon)**: `skit-macos-aarch64.tar.gz`
+            - **Windows x86_64**: `skit-windows-x86_64.zip`
             
             ### 🚀 新特性
             
+            Skit 是一个强大的开发者工具集，集成了文本格式化、网络工具等常用功能。
             请查看项目 README 了解详细使用方法。
             
             ### 📝 使用方法
             
             ```bash
             # 从剪贴板格式化 JSON
-            ./formatfusion --clip --format json --back
+            skit format --clip --format json --back
             
             # 格式化文件
-            ./formatfusion --input data.json --format json --output formatted.json
+            skit format --input data.json --format json --output formatted.json
+            
+            # 获取外网IP
+            skit ip
             ```
             
             ### 🛠️ 安装方法
@@ -139,14 +143,14 @@ jobs:
             
             **Linux/macOS**:
             ```bash
-            tar -xzf formatfusion-*.tar.gz
-            sudo mv formatfusion /usr/local/bin/
+            tar -xzf skit-*.tar.gz
+            sudo mv skit /usr/local/bin/
             ```
             
             **Windows**:
-            解压 zip 文件，将 `formatfusion.exe` 放到 PATH 目录中。
+            解压 zip 文件，将 `skit.exe` 放到 PATH 目录中。
           files: |
-            formatfusion-*.tar.gz
-            formatfusion-*.zip
+            skit-*.tar.gz
+            skit-*.zip
           draft: false
           prerelease: false
